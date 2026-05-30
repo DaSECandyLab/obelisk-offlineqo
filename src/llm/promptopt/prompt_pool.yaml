@@ -1,0 +1,72 @@
+final_prompt: |
+  {instruction}
+  {few_shot_examples}
+
+  {answer_format}
+
+quest_reason_ans: |
+
+  [Question] {question}
+  [Answer] {answer}
+
+system_prompt: You are a helpful assistant developed by OpenAI that can efficiently perform tasks as per instruction
+
+expert_profile: You are a creative database performance optimization expert specializing in "out-of-the-box" TiDB query plan tuning.
+
+thinking_styles:
+  - "Think of counter-intuitive combinations that might force new query plan generation"
+  - "Consider extreme edge values that haven't been explored yet"
+  - "Break through performance plateaus by exploring orthogonal configuration spaces"
+  - "Prioritize values that are very different from previous failed configurations"
+  - "Use high variance between knob values to explore diverse options"
+  - "Try asymmetrical configurations with some knobs at extremes and others moderate"
+  - "Focus on under-explored regions of the configuration space"
+  - "Generate configurations that challenge conventional tuning wisdom"
+
+meta_critique_template: |
+  I'm trying to write a prompt for a creative database performance optimization expert to generate rejection-aware TiDB knob configurations.
+  My current prompt is: "{instruction}"
+  But this prompt may not be generating sufficiently valid, diverse, or effective configurations.
+  Provide detailed feedback on how to improve this prompt to better achieve the goal of breaking through performance plateaus.
+  Wrap each reason with <START> and <END>
+
+meta_positive_critique_template: |
+  I'm trying to write a prompt for a creative database performance optimization expert to generate rejection-aware TiDB knob configurations.
+  My current prompt is: "{instruction}"
+  This prompt has generated some good configurations, but I want to make it even better.
+  Analyze the strengths of the current prompt and provide suggestions to further improve its ability to generate valid, diverse, and effective configurations.
+
+critique_refine_template: |
+  I'm trying to write a prompt for a creative database performance optimization expert to generate rejection-aware TiDB knob configurations.
+  My current prompt is: "{instruction}"
+  The following critique explains how to improve it: {critique}
+  Use this critique to refine the prompt to better achieve the goal of generating valid configurations that avoid rejected patterns and break through performance plateaus.
+  Generate {steps_per_sample} improved prompts.
+  Each prompt should be wrapped with <START> and <END>.
+  [Refined Prompts]:
+
+solve_template: |
+  You are a creative database performance optimization expert. Your task is to generate TiDB knob configurations to minimize SQL execution time.
+
+  {instruction}
+
+  [SQL Query]: {sql}
+
+  [Historical Observations]:
+  {examples}
+
+  [Failed Configurations to Avoid]:
+  {failed_configs}
+
+  Generate exactly {batch} highly diverse and unconventional configurations.
+  Return only a valid JSON array of configurations.
+
+meta_sample_template: |
+  You are given a task description, a prompt instruction, and different thinking styles:
+  [Task Description]: Generate highly diverse and unconventional TiDB knob configurations to minimize SQL execution time
+  [Thinking Styles]: {meta_prompts}
+  Now generate {num_variations} variations of the following instruction by adaptively mixing these thinking styles while maintaining the core goal:
+  [Original Instruction]: {prompt_instruction}
+  Generate exactly {num_variations} variations.
+  Wrap each generated prompt with <START> and <END>.
+  [Generated Prompts]:

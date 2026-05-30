@@ -1,0 +1,52 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+*.ipynb_checkpoints/
+
+# Local environment and secrets
+etc/*.toml
+!etc/*.toml.tpl
+config/
+
+# IDE and OS files
+.idea/
+.vscode/
+.claude/
+AGENTS.md
+CLAUDE.md
+.DS_Store
+sql/.DS_Store
+
+# Runtime artifacts
+logs/
+results/
+*.log
+*.sqlite3
+*.db
+model_cache/
+cache/
+
+# Local demo scratch files
+scripts/demo_data.sql
+scripts/setup_tidb_demo.sh
+sql/demo/
+
+# Large local datasets and experiment assets
+/data/
+revision-data/
+PromptWizard/
+temporary_scripts/
+scripts/
+
+# One-off local files
+test.py
